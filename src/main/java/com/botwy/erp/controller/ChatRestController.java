@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//? For JSON ответа: @RestController (with headers="Accept=application/json") или @Controller and @ResponseBody ?
 @CrossOrigin(origins = {"http://localhost:3333"}, maxAge = 6000, allowCredentials = "false")
 @RestController
+@RequestMapping("/chat")
 public class ChatRestController {
 
     private ChatMessageRepository repository;
@@ -31,24 +33,27 @@ public class ChatRestController {
         this.repository = repository;
     }
 
-    @GetMapping(path = "login")
-    public List login(@RequestParam("name") String name) {
+    @GetMapping("/login")
+    public boolean login(@RequestParam("name") String name) {
         String msgText = "К чату присоединился "+ name;
       //  model.addAttribute("message", responce);
         repository.save(new ChatMessage(name, msgText));
-        List list = new ArrayList();
-        list.add("true");
-        return list;
+     //   List list = new ArrayList();
+     //   list.add("true");
+        return true;
 
     }
 
-    @RequestMapping(path = "/allchats", method = RequestMethod.GET, headers="Accept=application/json")
-    public List<ChatMessage> getAllMsg() {
-
-        return  (List<ChatMessage>) repository.findAll();
+    @GetMapping("/new_msg")
+    public boolean newMsg(@RequestParam("name") String name,@RequestParam("msg") String msgText) {
+        repository.save(new ChatMessage(name, msgText));
+        return true;
     }
 
-    @GetMapping(path = "/chat/{id}", headers="Accept=application/json")
+    @GetMapping(path = "/allchats", headers="Accept=application/json")
+    public List<? extends IChatMessage> getAllMsg() { return  (List<ChatMessage>) repository.findAll(); }
+
+    @GetMapping(path = "/{id}", headers="Accept=application/json")
     public IChatMessage getMsgById(@PathVariable long id) {
         return (ChatMessage)repository.findOne(id);
     }

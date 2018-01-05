@@ -1,13 +1,16 @@
-package com.botwy.erp;
 
-import com.botwy.erp.pojo.Product;
+
+import com.botwy.erp.entity.Product;
 import com.botwy.erp.repository.ProductRepository;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Main {
 
-    public static void main(String... args) {
+public class ProductTest {
+
+    @Test
+    public void write() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("appContext.xml");
 
         ProductRepository prodRepo = ctx.getBean(ProductRepository.class);
@@ -26,5 +29,14 @@ public class Main {
         prod = new Product(title, priceBuy);
         prodRepo.save(prod);
 
+    }
+
+    @Test
+    public void read() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("appContext.xml");
+
+        ProductRepository prodRepo = ctx.getBean(ProductRepository.class);
+
+        prodRepo.findAll().forEach(System.out::println);
     }
 }

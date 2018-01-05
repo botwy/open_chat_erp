@@ -1,4 +1,4 @@
-package com.botwy.erp.pojo;
+package com.botwy.erp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //? For JSON ответа: @RestController (with headers="Accept=application/json") или @Controller and @ResponseBody ?
-@CrossOrigin(origins = {"http://localhost:3333"}, maxAge = 6000, allowCredentials = "false")
+@CrossOrigin(origins = {"http://localhost:3333","http://192.168.0.105:3333"}, maxAge = 6000, allowCredentials = "false")
 @RestController
 @RequestMapping("/chat")
 public class ChatRestController {

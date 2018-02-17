@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
+
 public class DocWithTable {
 
-    @Id
-    @GeneratedValue
+
     private Long id;
 
     private List<RowDoc> rowDocList;
